@@ -1,8 +1,9 @@
 package API_Testing.API_Automation_Testing_Using_RESTAssured.BasicsOfRESTAssured;
 
+// for given, when & then methods. Because these are static methods
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;    // for reponse matcher for body
 import io.restassured.RestAssured;
-import static io.restassured.RestAssured.*;  // for given, when & then methods. Because these are static methods
-
 public class Automating_POST_Request {
 
 	public static void main(String[] args) {
@@ -29,7 +30,12 @@ public class Automating_POST_Request {
 		// WHEN
 		.when().post("maps/api/place/add/json")  
 		// THEN
-		.then().log().all().assertThat().statusCode(200);         
+		.then().log().all()
+		// Apply assertion on status code
+		.assertThat().statusCode(200)
+		// Applying validations on response body & Header
+		.body("scope", equalTo("APP"))
+		.header("Server", "Apache/2.4.52 (Ubuntu)");         
 		
 
 	}
