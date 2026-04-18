@@ -15,3 +15,30 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Taken these from CHAT GPT
+target/
+*.log
+*.tmp
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+config.properties
+
+# Test reports
+test-output/
+allure-results/
+allure-report/
