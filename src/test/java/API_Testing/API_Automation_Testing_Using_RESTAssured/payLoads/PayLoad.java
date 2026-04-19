@@ -19,4 +19,13 @@ public class PayLoad {
 	 		+ "  \"language\": \"French-IN\"\r\n"
 	 		+ "}";
  }
+ 
+ public static String updatePlace(String placeID, String newAddress) {
+	 
+	 return "{\r\n"
+	 		+ "\"place_id\":\""+placeID+"\",\r\n"
+	 		+ "\"address\":\""+newAddress+"\",\r\n"
+	 		+ "\"key\":\"qaclick123\"\r\n"
+	 		+ "}";
+ }
 }

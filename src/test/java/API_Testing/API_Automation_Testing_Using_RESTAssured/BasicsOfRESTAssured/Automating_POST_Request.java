@@ -14,30 +14,37 @@ import io.restassured.path.json.JsonPath;
 public class Automating_POST_Request {
 
 	public static void main(String[] args) {
-		// Storing base url
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 
+		// Add Place
+		String placeID = addPlace();
+		updatePlace(placeID);
+	}
+	
+// 1. Add Place	(POST method)
+	public static String addPlace() {
 		String response =
 				given().queryParam("key", "qaclick123").header("Content-Type", "application/json").body(PayLoad.createPlace())
 				.when().post("maps/api/place/add/json")
 				.then().log().all().assertThat()
 				.statusCode(200).body("scope", equalTo("APP")).header("Server", "Apache/2.4.52 (Ubuntu)")
-				// Extract all the response (which is in json format) as String & save it in a String variable.
 				.extract().response().asString();
-		
-		// Now use JsonPath object to convert your API response into a readable/queryable object
-		// JsonPath is used to parse JSON response and extract specific values using key-based paths.
+	
 		JsonPath jpObj = new JsonPath(response);
-		
-		// Using JsonPath to navigate inside JSON and extract values
 		String placeID = jpObj.getString("place_id");
-		System.out.println("Place ID: "+placeID);
+		return placeID;
 	}
-
+	
+// 2. Update place's Address (Put Method)
+	public static void updatePlace(String placeID) {
+		String newAddress = "Pangya Niwas, Pushpatai Hire Nagar, Ajinde BAba chauk, Malegaon camp";
+		// integrate the placeID & new address in update body payload
+		String updatePlacePayload = PayLoad.updatePlace(placeID, newAddress);  
+		String updatePlaceResource = "maps/api/place/update/json";
+		
+		given().log().all().queryParam("key", "qaclick123").headers("Content-Type","application/json").body(updatePlacePayload)
+		.when().put(updatePlaceResource)
+		.then().log().all().assertThat().statusCode(200).body("msg", equalTo("Address successfully updated"));
+		
+	}
 }
-
-/*
- * RESTAssured is based on 3 methods 1. given -> all input data goes here
- * (queryParam -> header -> body) 2. when -> API is hit & resources & HTTP
- * methods goes here 3. then -> response validation goes here
- */
