@@ -1,4 +1,4 @@
-package API_Testing.API_Automation_Testing_Using_RESTAssured.payLoads;
+package API_Testing.API_Automation_Testing_Using_RESTAssured.ReusableParts;
 
 public class PayLoad {
  public static String createPlace() {
