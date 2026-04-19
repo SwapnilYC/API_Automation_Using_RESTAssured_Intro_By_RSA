@@ -5,8 +5,11 @@ import static io.restassured.RestAssured.given;
 // for reponse matcher for body
 import static org.hamcrest.Matchers.equalTo;
 
+import java.time.chrono.JapaneseChronology;
+
 import API_Testing.API_Automation_Testing_Using_RESTAssured.payLoads.PayLoad;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 
 public class Automating_POST_Request {
 
@@ -14,9 +17,21 @@ public class Automating_POST_Request {
 		// Storing base url
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 
-		given().log().all().queryParam("key", "qaclick123").header("Content-Type", "application/json")
-				.body(PayLoad.createPlace()).when().post("maps/api/place/add/json").then().log().all().assertThat()
-				.statusCode(200).body("scope", equalTo("APP")).header("Server", "Apache/2.4.52 (Ubuntu)");
+		String response =
+				given().queryParam("key", "qaclick123").header("Content-Type", "application/json").body(PayLoad.createPlace())
+				.when().post("maps/api/place/add/json")
+				.then().log().all().assertThat()
+				.statusCode(200).body("scope", equalTo("APP")).header("Server", "Apache/2.4.52 (Ubuntu)")
+				// Extract all the response (which is in json format) as String & save it in a String variable.
+				.extract().response().asString();
+		
+		// Now use JsonPath object to convert your API response into a readable/queryable object
+		// JsonPath is used to parse JSON response and extract specific values using key-based paths.
+		JsonPath jpObj = new JsonPath(response);
+		
+		// Using JsonPath to navigate inside JSON and extract values
+		String placeID = jpObj.getString("place_id");
+		System.out.println("Place ID: "+placeID);
 	}
 
 }
