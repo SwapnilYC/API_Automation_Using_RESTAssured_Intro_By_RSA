@@ -18,7 +18,7 @@ public class ComplexJsonParse {
 		System.out.println("Total Purchase Amount is: "+jpObj.getString("dashboard.purchaseAmount"));
 		
 		// 3. Print Title of the first course
-		System.out.println("Tilte of first course: " + jpObj.getString("courses[0].title"));
+		System.out.println("Title of first course: " + jpObj.getString("courses[0].title"));
 		
 		// 4. Print All course titles and their respective Prices
 		for(int i = 0; i < count; i++) {
@@ -27,6 +27,12 @@ public class ComplexJsonParse {
 		}
 		
 		// 5. Print no of copies sold by RPA Course
+		for(int i = 0; i < count; i++) {
+			if(jpObj.getString("courses["+i+"].title").equalsIgnoreCase("RPA")) {
+				System.out.println("No of Copies Sold By RPA course is " + jpObj.getInt("courses["+i+"].copies"));
+				break;
+			}
+		}
 		System.out.println("No of Copies Sold By RPA course is " + jpObj.getInt("courses[2].copies"));
 		
 		// 6. Verify if Sum of all Course prices matches with Purchase Amount
@@ -47,7 +53,6 @@ public class ComplexJsonParse {
 		
 		
 	}
-
 }
 
 
