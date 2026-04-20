@@ -14,13 +14,14 @@ public class DynamicJson {
 	public void addBook() {
 		RestAssured.baseURI = "http://216.10.245.166";
 		String resource = "/Library/Addbook.php";
-		
-		String response = given().header("Content-Type","application/json").body(PayLoad.addBook())
+		String bookToBeAdded = PayLoad.addBook("Snehal","Mumbai425413");
+		String response = given().header("Content-Type","application/json").body(bookToBeAdded)
 		.when().post(resource)
 		.then().assertThat().statusCode(200).extract().response().asString();
 		
 		JsonPath JPObj = ReusableJsonPath.rawToJson(response);
 		System.out.println(JPObj.getString("Msg"));
+		System.out.println(JPObj.getString("ID"));
 	}
 }
 

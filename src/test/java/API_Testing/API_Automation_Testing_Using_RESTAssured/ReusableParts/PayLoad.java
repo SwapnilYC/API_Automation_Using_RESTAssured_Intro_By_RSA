@@ -26,11 +26,11 @@ public class PayLoad {
 				+ "\r\n" + "\"copies\": 10\r\n" + "\r\n" + "}\r\n" + "\r\n" + "]\r\n" + "\r\n" + "}";
 	}
 	
-	public static String addBook() {
+	public static String addBook(String isbn, String aisle) {
 		return "{ \r\n"
 				+ "\"name\":\"Learn Appium Automation with Java\",\r\n"
-				+ "\"isbn\":\"bcd\",\r\n"
-				+ "\"aisle\":\"161095\",\r\n"
+				+ "\"isbn\":\""+isbn+"\",\r\n"
+				+ "\"aisle\":\""+aisle+"\",\r\n"
 				+ "\"author\":\"John foe\"\r\n"
 				+ "}";
 	}
