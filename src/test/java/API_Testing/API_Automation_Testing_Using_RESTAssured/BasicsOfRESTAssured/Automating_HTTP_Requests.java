@@ -10,7 +10,7 @@ import API_Testing.API_Automation_Testing_Using_RESTAssured.ReusableParts.Reusab
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 
-public class Automating_POST_Request {
+public class Automating_HTTP_Requests {
 
 	public static void main(String[] args) {
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
