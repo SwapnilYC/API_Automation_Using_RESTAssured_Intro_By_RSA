@@ -34,6 +34,22 @@ public class PayLoad {
 				+ "\"author\":\"John foe\"\r\n"
 				+ "}";
 	}
+	
+	// This is for Issue creation in jira
+	public static String createIssueInJira(String spaceKey, String summary) {
+		return "{\r\n"
+				+ "    \"fields\": {\r\n"
+				+ "       \"project\":\r\n"
+				+ "       {\r\n"
+				+ "          \"key\": \""+spaceKey+"\"\r\n"
+				+ "       },\r\n"
+				+ "       \"summary\": \""+summary+"\",\r\n"
+				+ "       \"issuetype\": {\r\n"
+				+ "          \"name\": \"Bug\"\r\n"
+				+ "       }\r\n"
+				+ "   }\r\n"
+				+ "}";
+	}
 }
 
 
