@@ -13,7 +13,7 @@ import pojo.MobileSubJson;
 import pojo.POJO_class_For_GET_Course_Response;
 import pojo.WebAutomationSubJson;
 
-public class HandlingOAuth2_0_Using_POJO_classes {
+public class Deserialization_POJO_classes_Exercise {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
@@ -43,21 +43,13 @@ public class HandlingOAuth2_0_Using_POJO_classes {
 		// Serialization
 		POJO_class_For_GET_Course_Response getCourceObj = given().queryParam("access_token", access_token).when().get(resource).as(POJO_class_For_GET_Course_Response.class);  
 		
-		// Deserialization
-		System.out.println("Instructor name is: "+getCourceObj.getInstructor());
+		List<WebAutomationSubJson> webAutomationObj = getCourceObj.getCourses().getWebAutomation();
 		
-		CoursesSubJson CoursesObj = getCourceObj.getCourses();
-		List<WebAutomationSubJson> webAutomationObj = CoursesObj.getWebAutomation();
-		List<APISubJson> apiObj = CoursesObj.getApi();
-		List<MobileSubJson> mobileObj = CoursesObj.getMobile();
-		
-		// Find price of course having name "Rest Assured Automation using Java" in APISubJson
-		int sizeAPISubJson = apiObj.size();
-		for(int i = 0; i < sizeAPISubJson; i++) {
-			if(apiObj.get(i).getCourseTitle().equalsIgnoreCase("Rest Assured Automation using Java")) {
-				System.out.println("Course Price of 'Rest Assured Automation using Java' is: " +apiObj.get(i).getPrice());
-				break;
-			}
+		// Print name of every course in Webautomation
+		System.out.println("Courses Name in Web Automation are");
+		int sizewebAutomationObj = webAutomationObj.size();
+		for(int i = 0; i < sizewebAutomationObj; i++) {
+			System.out.println((i+1)+". " + webAutomationObj.get(i).getCourseTitle());
 		}
 	}
 }
